@@ -12,7 +12,6 @@ Aplikasi web sederhana ini dibuat sebagai tugas mata kuliah **Pengembangan Infra
 - `package.json` : Konfigurasi dependensi Node.js.
 - `vercel.json` : File konfigurasi agar Vercel mengeksekusi `server.js` sebagai fungsi Serverless.
 - `netlify.toml` : Konfigurasi untuk memberitahu Netlify agar mendeploy isi folder `public` saja.
-- `.github/workflows/deploy.yml` : Konfigurasi **CI/CD** (GitHub Actions) untuk otomatis mendeploy folder `public` ke GitHub Pages.
 
 ## 💻 Cara Menjalankan Secara Lokal
 
@@ -55,21 +54,22 @@ Netlify sangat optimal untuk web statis. Kita atur agar Netlify hanya membaca fo
 - Klik **Deploy site**.
 - *Hasil: Web statis berjalan sangat cepat.*
 
-### 3. GitHub Pages (Deploy Versi HTML Static via CI/CD)
-Menggunakan fitur otomatisasi GitHub Actions.
-- Buka repository di GitHub.
-- Masuk ke tab **Settings** -> **Pages**.
-- Pada bagian *Build and deployment*, ubah *Source* menjadi **GitHub Actions**.
-- Konfigurasi `deploy.yml` sudah disiapkan di `.github/workflows/`. Setiap perubahan yang di-push ke branch `main` akan otomatis memicu deployment.
-- Buka tab **Actions** untuk melihat proses *build* berjalan.
-- *Hasil: Web statis bisa diakses di `https://USERNAME.github.io/digitefa-deploy-app/`.*
+### 3. Cloudflare Pages (Deploy Versi HTML Static)
+Cloudflare Pages sangat cepat dan merupakan standar industri untuk website statis tanpa perlu konfigurasi di repository.
+- Login ke [Cloudflare Dashboard](https://dash.cloudflare.com) dan pilih menu **Workers & Pages**.
+- Klik **Create application** lalu pilih tab **Pages**.
+- Klik **Connect to Git** dan hubungkan akun GitHub Anda.
+- Pilih repository proyek ini.
+- Pada bagian *Build settings*, ubah *Build output directory* menjadi `public`.
+- Klik **Save and Deploy**.
+- *Hasil: Web statis berjalan di atas jaringan global Cloudflare.*
 
 ---
 
 ## 🔄 Penjelasan CI/CD Sederhana
 
 **CI/CD (Continuous Integration / Continuous Deployment)** adalah praktik agar setiap kali kita mengubah kode, sistem secara otomatis mengujinya dan menaruhnya ke server (deploy).
-Pada proyek ini, file `.github/workflows/deploy.yml` adalah contoh **CD (Continuous Deployment)** sederhana. Saat Anda melakukan `git push`, robot GitHub Actions akan menyalin folder `public/` dan mempublikasikannya ke GitHub Pages secara otomatis tanpa campur tangan manual.
+Pada proyek ini, setiap kali Anda melakukan `git push` ke GitHub, ketiga provider di atas (Vercel, Netlify, Cloudflare) akan menyadari adanya perubahan dan secara otomatis mem-build serta mem-publish ulang website Anda tanpa Anda harus memindahkan file secara manual (FTP).
 
 ---
 
@@ -77,7 +77,7 @@ Pada proyek ini, file `.github/workflows/deploy.yml` adalah contoh **CD (Continu
 
 Custom Domain digunakan agar web bisa diakses dengan nama profesional (misal: `www.digitefa-tugas.com`).
 1. Beli domain di Registrar (Ex: Niagahoster, Hostinger).
-2. Di dashboard hosting (Vercel/Netlify), masuk ke menu **Domain Management**.
+2. Di dashboard hosting (Vercel/Netlify/Cloudflare), masuk ke menu **Domain Management** atau **Custom Domains**.
 3. Tambahkan domain baru.
 4. Provider akan memberikan **DNS Records** (biasanya tipe `A` Record atau `CNAME`).
 5. Buka dashboard Registrar Domain Anda, masuk ke **DNS Zone Editor**.
@@ -126,14 +126,13 @@ ping your-app.vercel.app
 
 ## 📊 Perbandingan Provider Hosting
 
-| Fitur | Vercel | Netlify | GitHub Pages |
-|-------|--------|---------|--------------|
-| **Fokus Utama** | Next.js, Node.js, Frontend | Web Statis, JAMstack | Web Statis, Dokumentasi |
+| Fitur | Vercel | Netlify | Cloudflare Pages |
+|-------|--------|---------|------------------|
+| **Fokus Utama** | Next.js, Node.js, Frontend | Web Statis, JAMstack | Web Statis, Keamanan & CDN |
 | **Dukungan Node.js** | Sangat Baik (Native Serverless) | Baik (via Netlify Functions) | Tidak Ada (Hanya Statis) |
-| **Kecepatan Deploy** | Sangat Cepat | Sangat Cepat | Sedang (Tergantung Actions) |
-| **Custom Domain** | Gratis & Mudah | Gratis & Mudah | Gratis & Mudah |
-| **SSL Otomatis** | Ya (Let's Encrypt) | Ya (Let's Encrypt) | Ya |
-| **Kecocokan Proyek Ini**| ⭐⭐⭐⭐⭐ (Backend) | ⭐⭐⭐⭐ (Frontend) | ⭐⭐⭐ (Frontend) |
+| **Kecepatan Deploy** | Sangat Cepat | Sangat Cepat | Sangat Cepat (Jaringan Cloudflare) |
+| **Custom Domain** | Gratis & Mudah | Gratis & Mudah | Gratis & Terintegrasi SSL Cloudflare |
+| **Kecocokan Proyek Ini**| ⭐⭐⭐⭐⭐ (Backend) | ⭐⭐⭐⭐ (Frontend) | ⭐⭐⭐⭐ (Frontend) |
 
 ### 🎯 Kesimpulan Provider Terbaik
-Untuk aplikasi yang hanya berupa HTML/CSS Statis, **Netlify** memberikan pengalaman paling mulus. Namun, untuk aplikasi hybrid atau yang membutuhkan Node.js API (seperti pada proyek ini), **Vercel** adalah provider terbaik karena kemampuannya membaca `server.js` sebagai fungsi *serverless* secara instan.
+Untuk aplikasi statis yang menginginkan jaringan CDN tercepat, **Cloudflare Pages** sangat unggul. **Netlify** memberikan *user experience* terbaik untuk pemula. Namun, untuk aplikasi *hybrid* atau yang membutuhkan Node.js API (seperti pada proyek ini), **Vercel** adalah provider terbaik karena kemampuannya membaca `server.js` sebagai fungsi *serverless* secara instan.
