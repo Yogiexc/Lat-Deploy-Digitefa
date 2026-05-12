@@ -1,0 +1,5 @@
+[build]
+  # Netlify akan mendeploy versi Static HTML dari folder public/
+  publish = "public/"
+  # Kosong karena file HTML statis tidak memerlukan build command
+  command = ""

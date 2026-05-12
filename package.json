@@ -1,0 +1,16 @@
+{
+  "name": "digitefa-deploy-app",
+  "version": "1.0.0",
+  "description": "Aplikasi sederhana dengan HTML Static dan Node.js Express untuk tugas Pengembangan Infrastruktur TI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}

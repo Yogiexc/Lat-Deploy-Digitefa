@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digitefa Deploy App</title>
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <div class="logo">🚀 Digitefa</div>
+            <nav>
+                <a href="#about">Tentang</a>
+                <a href="#features">Fitur</a>
+                <a href="#deploy">Deployment</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero" id="about">
+                <span class="badge">Tugas Infrastruktur TI</span>
+                <h1>Aplikasi Siap <span>Deploy</span></h1>
+                <p>Proyek web sederhana ini dibuat dengan HTML Statis dan Node.js Express. Dirancang khusus agar mudah dipahami mahasiswa pemula, serta siap di-deploy ke Vercel, Netlify, maupun GitHub Pages.</p>
+                <div class="actions">
+                    <button id="btnCheckHealth" class="btn primary">Cek API Health</button>
+                    <a href="https://github.com" target="_blank" class="btn secondary">Lihat Repository</a>
+                </div>
+                <div id="healthResult" class="health-result hidden">
+                    <!-- Hasil API akan muncul di sini -->
+                </div>
+            </section>
+
+            <section id="features" class="features-grid">
+                <div class="feature-card">
+                    <h3>⚡ Kinerja Cepat</h3>
+                    <p>Antarmuka dibangun dengan CSS Vanilla modern yang ringan, cepat dimuat, dan responsif.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛠️ Multi-Platform</h3>
+                    <p>Satu repositori GitHub bisa dideploy ke 3 provider berbeda (Vercel, Netlify, GH Pages).</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🩺 API Ready</h3>
+                    <p>Memiliki endpoint backend <code>/health</code> yang akan merespons jika dijalankan pada server Node.js.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Digitefa Infrastruktur TI. Dibuat untuk pembelajaran Universitas.</p>
+        </footer>
+    </div>
+
+    <!-- Script Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
